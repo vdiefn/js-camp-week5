@@ -181,7 +181,7 @@ function calculateSavings(carts) {
  * @returns {number} - 回傳所有商品的 quantity 總和
  */
 function calculateCartItemCount(carts) {
-  return carts.reduceRight((acc, cur) => (acc += cur.quantity), 0);
+  return carts.reduce((acc, cur) => (acc += cur.quantity), 0);
 }
 
 /**
