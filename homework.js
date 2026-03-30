@@ -266,7 +266,12 @@ function clearCart() {
  * @returns {number} - 只計算已付款 (paid: true) 的訂單
  */
 function calculateTotalRevenue(orders) {
-  // 請實作此函式
+  return orders.reduce((acc, cur) => {
+    if(cur.paid){
+      acc+=cur.total
+    }
+    return acc
+  },0)
 }
 
 /**
@@ -276,7 +281,7 @@ function calculateTotalRevenue(orders) {
  * @returns {Array} - 回傳篩選後的訂單陣列
  */
 function filterOrdersByStatus(orders, isPaid) {
-  // 請實作此函式
+  return orders.filter(item => item.paid == isPaid)
 }
 
 /**
@@ -292,7 +297,21 @@ function filterOrdersByStatus(orders, isPaid) {
  * }
  */
 function generateOrderReport(orders) {
-  // 請實作此函式
+  return {
+    totalOrders:orders.length,
+    paidOrders:orders.filter(item => item.paid).length,
+    uppaidORders:orders.filter(item => !item.paid).length,
+    totalRevenue:orders.reduce((acc,cur)=>{
+      if(cur.paid){
+        acc+=cur.total
+      }
+      return acc
+    },0),
+    averageOrderValue:orders.reduce((acc,cur,index,arr)=> {
+      acc+=cur.total
+      return Math.round(acc/arr.length)
+    },0)
+  }
 }
 
 /**
@@ -305,7 +324,10 @@ function generateOrderReport(orders) {
  * }
  */
 function groupOrdersByPayment(orders) {
-  // 請實作此函式
+  return {
+    "ATM":orders.filter(item => item.user.payment === "ATM"),
+    "Credit Card":orders.filter(item => item.user.payment === "Credit Card")
+  }
 }
 
 // ========================================
